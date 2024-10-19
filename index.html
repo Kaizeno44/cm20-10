@@ -16,6 +16,8 @@
             color: #333;
             padding: 20px;
             margin: 0;
+            overflow: hidden;
+            position: relative;
         }
         h1 {
             color: #e91e63;
@@ -39,16 +41,26 @@
             margin-top: 20px;
             border-radius: 10px;
         }
-        .btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #e91e63;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Cherry_blossom_icon.png/600px-Cherry_blossom_icon.png') no-repeat center/contain;
+            opacity: 0.8;
+            animation: fall linear infinite;
         }
-        .btn:hover {
-            background-color: #d81b60;
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -59,7 +71,20 @@
         <div class="image-container">
             <img src="https://source.unsplash.com/300x200/?flowers" alt="Chúc mừng 20/10">
         </div>
-        <a class="btn" href="#">Gửi lời chúc</a>
     </div>
+
+    <script>
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(flower);
+            setTimeout(() => {
+                flower.remove();
+            }, 10000);
+        }
+        setInterval(createFlower, 300);
+    </script>
 </body>
 </html>
